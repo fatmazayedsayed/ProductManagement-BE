@@ -1,5 +1,6 @@
 ﻿using ProductManagement.API.CategoryEndpoint.Create;
 using ProductManagement.Application.Abstractions.DataAbstractions;
+using ProductManagement.Application.CategoryEndpoint.Update;
 
 namespace ProductManagement.API.Extensions
 {
@@ -11,6 +12,8 @@ namespace ProductManagement.API.Extensions
 
             services.AddScoped<CreateCategoryHandler>();
             services.AddScoped<GetCategoryHandler>();
+            services.AddScoped<UpdateCategoryHandler>();
+            services.AddScoped<DeleteCategoryHandler>();
 
             #endregion  
 

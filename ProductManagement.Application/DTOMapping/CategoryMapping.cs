@@ -1,4 +1,6 @@
 using ProductManagement.API.CategoryEndpoint.Create;
+using ProductManagement.Application.CategoryEndpoint.CommonDTO;
+using ProductManagement.Application.CategoryEndpoint.Update;
 using ProductManagement.Common.DTO.GroupDTO;
 using ProductManagement.Domain.Models;
 
@@ -23,7 +25,6 @@ namespace ProductManagement.Application.CategoryRecords
             };
         }
 
-
         public static CategoryRecord ToCategoryResult(this Category dto)
         {
             return new CategoryRecord
@@ -35,6 +36,17 @@ namespace ProductManagement.Application.CategoryRecords
             };
         }
 
+
+
+        public static Category ToCategory(this UpdateCategoryRequest dto)
+        {
+            return new Category
+            {
+                Name = dto.Name,
+                Description = dto.Description,
+                ParentCategoryId = dto.ParentCategoryId
+            };
+        }
         public static CategoryGetAllResult ToCategoryGetAllResult(this IEnumerable<CategoryListDTO> Categories, int count)
         {
             var res = new CategoryGetAllResult

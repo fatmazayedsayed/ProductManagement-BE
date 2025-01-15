@@ -1,4 +1,5 @@
 ﻿using ProductManagement.Application.Abstractions.DataAbstractions;
+using ProductManagement.Application.CategoryEndpoint.CommonDTO;
 using ProductManagement.Application.CategoryRecords;
 using ProductManagement.Domain.Models;
 using System.Threading;

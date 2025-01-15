@@ -6,6 +6,7 @@ using ProductManagement.Common.DTO.LookUps;
 using ProductManagement.Common.DTO.CategoryDTO;
 using ProductManagement.API.CategoryEndpoint.Create;
 using Abp.Linq.Extensions;
+using ProductManagement.Application.CategoryEndpoint.CommonDTO;
 
 namespace ProductManagement.Infrastructure.Repositories
 {
@@ -59,11 +60,20 @@ namespace ProductManagement.Infrastructure.Repositories
             return await ctx.Categories.FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<Category?> Update(CategoryDto request)
+        public async Task<Category?> Update(Category request)
         {
             var row = await ctx.Categories.FirstOrDefaultAsync(e => e.Id == request.Id);
             row.Name = request.Name;
+            row.Description = request.Description;
+            row.ParentCategoryId = request.ParentCategoryId;
             return row;
+        }
+
+        public async Task<bool> Delete(Guid Id)
+        {
+            var row = await ctx.Categories.FirstOrDefaultAsync(e => e.Id == Id);
+            row.IsDeleted=true;
+            return true;
         }
 
 
