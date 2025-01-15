@@ -56,8 +56,7 @@ builder.InitSwagger();
 builder.Services.AddHttpContextAccessor();
 builder.RegisterAuthentication();
 
-builder.Services.AddScoped<CreateCategoryHandler>();
-
+ 
 
 // Configure logging
 builder.Logging.ClearProviders();

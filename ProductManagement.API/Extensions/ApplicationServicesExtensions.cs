@@ -3,17 +3,17 @@ using ProductManagement.Application.Abstractions.DataAbstractions;
 
 namespace ProductManagement.API.Extensions
 {
-
-
     public static class ApplicationServicesExtensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            // Register the CreateCategoryHandler class for DI
-            services.AddScoped<CreateCategoryHandler>();
+            #region  Category
 
-          
- 
+            services.AddScoped<CreateCategoryHandler>();
+            services.AddScoped<GetCategoryHandler>();
+
+            #endregion  
+
             return services;
         }
     }

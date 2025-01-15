@@ -18,15 +18,10 @@ namespace ProductManagement.Infrastructure.Extensions
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
 
-              // services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-            services.AddScoped<IUnitOfWork, ProductManagementUoW>();          
-         
+            // services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddScoped<IUnitOfWork, ProductManagementUoW>();
+
             services.AddScoped<ICategoryRepository, CategoryRepository>();
-          
-
-
-
-
 
             return services;
         }
