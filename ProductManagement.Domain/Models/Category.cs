@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ProductManagement.Common.Enum;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProductManagement.Domain.Models;
@@ -9,7 +10,18 @@ public partial class Category : BaseModel
 
     [StringLength(50)]
     public required string Name { get; set; }
-     public required string Description { get; set; }
+    [StringLength(200)]
+    public string Description { get; set; } = string.Empty;
+    public Guid? ParentCategoryId { get; set; } // Optional self-referencing foreign key.
+
+    [ForeignKey(nameof(ParentCategoryId))]
+    public virtual Category? ParentCategory { get; set; } // Navigation property for the parent category.
+
+    [Required]
+    public CategoryStatus Status { get; set; } = CategoryStatus.Active; // Enum for status with a default value.
+
+
+
     public static SortExpression<Category> SortBy(string sorting)
     {
         // If sorting is null or empty, default to sorting by InsertedDate ascending
