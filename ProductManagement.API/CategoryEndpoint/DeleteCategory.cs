@@ -1,4 +1,5 @@
 ﻿using FastEndpoints;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.CategoryEndpoint.Delete;
 using ProductManagement.Application.CategoryEndpoint.Update;
@@ -7,6 +8,7 @@ using Http = FastEndpoints.Http;
 namespace ProductManagement.API.CategoryEndpoint
 {
     [ApiExplorerSettings(GroupName = "Category")]
+    [Authorize]
     public class DeleteCategoryEndpoint : Endpoint<DeleteCategoryRequest>
     {
         private readonly DeleteCategoryHandler _handler;
@@ -20,8 +22,7 @@ namespace ProductManagement.API.CategoryEndpoint
         {
             Verbs(Http.DELETE);
             Routes("/api/categories/{CategoryId}");  // Dynamic route to pass CategoryId as a URL parameter
-            AllowAnonymous();
-        }
+         }
 
         public override async Task HandleAsync(DeleteCategoryRequest req, CancellationToken ct)
         {

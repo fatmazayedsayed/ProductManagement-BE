@@ -1,4 +1,5 @@
 ﻿using FastEndpoints;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.API.CategoryEndpoint.Create;
 using Http = FastEndpoints.Http;
@@ -6,6 +7,7 @@ using Http = FastEndpoints.Http;
 namespace ProductManagement.API.CategoryEndpoint
 {
     [ApiExplorerSettings(GroupName = "Category")]
+    [Authorize]
     public class CreateCategory : Endpoint<CreateCategoryRequest>
     {
         private readonly CreateCategoryHandler _handler;
@@ -19,8 +21,7 @@ namespace ProductManagement.API.CategoryEndpoint
         {
             Verbs(Http.POST);
             Routes("/api/categories");
-            AllowAnonymous();
-        }
+         }
 
         public override async Task HandleAsync(CreateCategoryRequest req, CancellationToken ct)
         {
