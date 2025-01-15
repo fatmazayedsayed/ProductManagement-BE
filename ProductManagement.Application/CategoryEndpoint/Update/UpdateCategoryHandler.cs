@@ -4,29 +4,30 @@ using ProductManagement.Application.CategoryRecords;
 using ProductManagement.Domain.Models;
 using System.Threading;
 
-namespace ProductManagement.API.CategoryEndpoint.Create
+namespace ProductManagement.Application.CategoryEndpoint.Update
 {
-    public class GetCategoryHandler
+    public class UpdateCategoryHandler
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public GetCategoryHandler(IUnitOfWork unitOfWork)
+        public UpdateCategoryHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<CategoryRecord>> HandleAsync(GetCategoryRequest req, CancellationToken ct)
+        public async Task<CategoryRecord?> HandleAsync(UpdateCategoryRequest req, CancellationToken ct)
         {
             try
             {
-                var records = await _unitOfWork.Category.GetAll(req, ct);
+                var categoryEntity = req.ToCategory();
+                var createdCategory = await _unitOfWork.Category.Update(categoryEntity);
                 await _unitOfWork.SaveChangesAsync(ct);
 
-                return records;
+                var dto = createdCategory.ToCategoryResult();
+                return dto;
             }
             catch (Exception ex)
             {
-                // Log the error as needed and return null to indicate failure
                 return null;
             }
         }
