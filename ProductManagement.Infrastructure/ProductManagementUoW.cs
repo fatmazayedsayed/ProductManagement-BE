@@ -8,21 +8,16 @@ namespace ProductManagement.Infrastructure;
 public class ProductManagementUoW : IUnitOfWork
 {
     private readonly ProductManagementDbContext _context;
-    private readonly IConfiguration _Configuration; 
-    public ICategoryRepository Category { get; }  
+    private readonly IConfiguration _Configuration;
+    public ICategoryRepository Category { get; }
 
-    public ProductManagementUoW(ProductManagementDbContext context,
-          ICategoryRepository Category,
-        
-       IConfiguration _configuration )
-
+    public ProductManagementUoW(ProductManagementDbContext context, IConfiguration _configuration,
+          ICategoryRepository category)
     {
         _context = context;
-         _Configuration = _configuration;
-         
-        Category = Category; 
+        _Configuration = _configuration;
+        Category = category;
 
-         
     }
 
 
@@ -47,16 +42,16 @@ public class ProductManagementUoW : IUnitOfWork
         //    await _context.AuditTrails.AddRangeAsync(auditEntries, cancellationToken);
         //}
 
-        //try
-        //{
-        //    await _context.SaveChangesAsync(cancellationToken);
-        //}
-        //catch (DbUpdateException ex)
-        //{
-        //    // Log the exception and inner exception details
-        //    var innerException = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
-        //    throw new Exception($"An error occurred while saving changes: {innerException}", ex);
-        //}
+        try
+        {
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+        catch (DbUpdateException ex)
+        {
+            // Log the exception and inner exception details
+            var innerException = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+            throw new Exception($"An error occurred while saving changes: {innerException}", ex);
+        }
     }
     public async Task RevertTransactionAsync(CancellationToken cancellationToken)
     {

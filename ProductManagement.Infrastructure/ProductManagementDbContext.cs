@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using ProductManagement.Common.Enum;
 using ProductManagement.Domain.Models;
 
 namespace ProductManagement.Infrastructure;
@@ -23,11 +24,10 @@ public partial class ProductManagementDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
 
- 
-  
-
-        OnModelCreatingPartial(modelBuilder);
+        // Seed data
+        modelBuilder.SeedData();
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
