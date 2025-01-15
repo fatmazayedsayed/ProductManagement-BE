@@ -1,12 +1,14 @@
-using ProductManagement.API.Extensions;
-using ProductManagement.API.Filters;
-using ProductManagement.Application.Extensions;
-using ProductManagement.Infrastructure.Extensions;
+using FastEndpoints;
 using Microsoft.OpenApi.Models;
 using NLog.Web;
+using ProductManagement.API.CategoryEndpoint.Create;
+using ProductManagement.API.Extensions;
+using ProductManagement.API.Filters;
 
+using ProductManagement.Infrastructure.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
+// Add CORS
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(corsBuilder =>
@@ -17,112 +19,81 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Add controllers and custom exception filter
 builder.Services.AddControllers(config =>
 {
-    config.Filters.Add(typeof(ProductManagementExceptionHandler)); // Add your custom exception handler filter
+    config.Filters.Add(typeof(ProductManagementExceptionHandler));
 })
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-        options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
-    });
+.AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+});
 
-
-// Swagger configuration should be done before building the app
+// Add Swagger configuration for categories and products
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-
-    c.SwaggerDoc("Authentication And Authorization", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "Authentication And Authorization",
-        Description = "API documentation for Authentication and Authorization. Details endpoints for user authentication, authorization, and related security features.",
-    });
-    c.SwaggerDoc("System Configuration", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "System Configuration",
-        Description = "API documentation for System Configuration.",
-    });
-
     c.SwaggerDoc("Category", new OpenApiInfo
     {
         Version = "v1",
-        Title = "Categorys",
-        Description = "API documentation for Categorys.",
+        Title = "Category API",
+        Description = "API documentation for Category management.",
     });
 
-    c.SwaggerDoc("Group", new OpenApiInfo
+    c.SwaggerDoc("Product", new OpenApiInfo
     {
         Version = "v1",
-        Title = "Group",
-        Description = "API documentation for Group.",
+        Title = "Product API",
+        Description = "API documentation for Product management.",
     });
 
-    c.SwaggerDoc("User Management", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "User Management",
-        Description = "API documentation for User Management.",
-    });
-    c.SwaggerDoc("LookUps", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "LookUps",
-        Description = "API documentation for LookUps.",
-    });
-    c.SwaggerDoc("Logs", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "Logs",
-        Description = "API documentation for Logs.",
-    });
-    c.SwaggerDoc("Screen Menu", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "Screen Menu",
-        Description = "API documentation for Screen Menu.",
-    });
-
+    
 });
+
+// Register authentication and application services
 builder.InitSwagger();
 builder.Services.AddHttpContextAccessor();
-
 builder.RegisterAuthentication();
-builder.Services.AddApplicationServices();
-builder.Services.AddDataServices(builder.Configuration);
+
+builder.Services.AddScoped<CreateCategoryHandler>();
+
+
 // Configure logging
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(LogLevel.Error);
 builder.Host.UseNLog();
 
+builder.Services.AddApplicationServices(); // This will register CreateCategoryHandler and other services
+builder.Services.AddDataServices(builder.Configuration);
+
+// Register FastEndpoints services
+builder.Services.AddFastEndpoints();
+
 var app = builder.Build();
 
+// Use Swagger middleware
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/Authentication And Authorization/swagger.json", "Authentication And Authorization");
-    c.SwaggerEndpoint("/swagger/System Configuration/swagger.json", "System Configuration");
-    c.SwaggerEndpoint("/swagger/Category/swagger.json", "Category");
-    c.SwaggerEndpoint("/swagger/Group/swagger.json", "Group");
-    c.SwaggerEndpoint("/swagger/User Management/swagger.json", "User Management");
-    c.SwaggerEndpoint("/swagger/LookUps/swagger.json", "LookUps");
-    c.SwaggerEndpoint("/swagger/Logs/swagger.json", "Logs");
-    c.SwaggerEndpoint("/swagger/Screen Menu/swagger.json", "Screen Menu");
+    c.SwaggerEndpoint("/swagger/Category/swagger.json", "Category API");
+    c.SwaggerEndpoint("/swagger/Product/swagger.json", "Product API");
 
-
-    c.RoutePrefix = "swagger";
+    c.RoutePrefix = "swagger"; // Swagger UI will be available at /swagger
     c.DisplayRequestDuration();
     c.DefaultModelsExpandDepth(-1);
-    c.EnablePersistAuthorization(); // For Authorization Across Multiple Swagger Groups
+    c.EnablePersistAuthorization();
 });
 
-
+// Enable middleware for CORS, HTTPS Redirection, Authorization
 app.UseHttpsRedirection();
 app.UseCors();
-
 app.UseAuthorization();
 
+// Register FastEndpoints in the request pipeline
+app.UseFastEndpoints();
+
+// Map Controllers (if needed, depending on your project structure)
 app.MapControllers();
 
 app.Run();

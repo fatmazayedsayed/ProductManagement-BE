@@ -1,37 +1,45 @@
+using ProductManagement.API.CategoryEndpoint.Create;
 using ProductManagement.Common.DTO.GroupDTO;
+using ProductManagement.Domain.Models;
 
 namespace ProductManagement.Application.CategoryRecords
 {
-    public record CategoryResultDto
-    {
-        public Guid Id;
-        public string Name;
-        public string Code;
-        public string Description;
-    }
+
     public record CategoryGetAllResult
     {
-        public IEnumerable<CategoryListDTO>Categories { get; set; }
+        public IEnumerable<CategoryListDTO> Categories { get; set; }
         public int Count { get; set; }
     }
 
     public static class CategoryMapping
     {
-        public static CategoryResultDto ToCategoryResult(this Domain.Models.Category Category)
+        public static Category ToCategory(this CreateCategoryRequest dto)
         {
-            return new CategoryResultDto
+            return new Category
             {
-                Id = Category.Id,
-                Name = Category.Name,
-                 Description = Category.Description
+                Name = dto.Name,
+                Description = dto.Description,
+                ParentCategoryId = dto.ParentCategoryId
             };
         }
 
-        public static CategoryGetAllResult ToCategoryGetAllResult(this IEnumerable<CategoryListDTO>Categories, int count)
+
+        public static CategoryRecord ToCategoryResult(this Category dto)
+        {
+            return new CategoryRecord
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                Description = dto.Description,
+                ParentCategoryId = dto.ParentCategoryId
+            };
+        }
+
+        public static CategoryGetAllResult ToCategoryGetAllResult(this IEnumerable<CategoryListDTO> Categories, int count)
         {
             var res = new CategoryGetAllResult
             {
-               Categories =Categories.ToList(),
+                Categories = Categories.ToList(),
                 Count = count
             };
             return res;

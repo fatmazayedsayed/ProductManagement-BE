@@ -19,10 +19,8 @@ namespace ProductManagement.Infrastructure.Extensions
             });
 
               // services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-            services.AddScoped<IUnitOfWork, ProductManagementUoW>();
-            
-
-           
+            services.AddScoped<IUnitOfWork, ProductManagementUoW>();          
+         
             services.AddScoped<ICategoryRepository, CategoryRepository>();
           
 

@@ -6,8 +6,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Categorys\**" />
+    <Compile Remove="Commands\**" />
     <EmbeddedResource Remove="Categorys\**" />
+    <EmbeddedResource Remove="Commands\**" />
     <None Remove="Categorys\**" />
+    <None Remove="Commands\**" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.2.0" />
@@ -23,8 +26,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProductManagement.Domain\ProductManagement.Domain.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\" />
   </ItemGroup>
 </Project>

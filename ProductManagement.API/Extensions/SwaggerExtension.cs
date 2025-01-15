@@ -9,7 +9,7 @@ namespace ProductManagement.API.Extensions
         {
             builder.Services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CV Ranking API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Product management API", Version = "v1" });
                 c.EnableAnnotations();
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
