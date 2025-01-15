@@ -11,11 +11,12 @@ namespace ProductManagement.Infrastructure
         {
 
             //seed Admin User
-
+            var userId = Guid.NewGuid();
+            var insertedDate = DateTime.Now;
             modelBuilder.Entity<User>().HasData(
                new User
                {
-                   Id = Guid.NewGuid(),
+                   Id =userId,
                    UserName = "admin",
                    Email = "Admin@urwave.com",
                    IsActive = true,
@@ -33,19 +34,25 @@ namespace ProductManagement.Infrastructure
                 {
                     Id = electronicsCategoryId,
                     Name = "Electronics",
-                    Description = "Devices and gadgets"
+                    Description = "Devices and gadgets",
+                    InsertedBy= userId,
+                    InsertedDate = insertedDate,
                 },
                 new Category
                 {
                     Id = clothingCategoryId,
                     Name = "Clothing",
-                    Description = "Men's and Women's apparel"
+                    Description = "Men's and Women's apparel",
+                    InsertedBy = userId,
+                    InsertedDate = insertedDate,
                 },
                 new Category
                 {
                     Id = groceriesCategoryId,
                     Name = "Groceries",
-                    Description = "Daily essentials and food items"
+                    Description = "Daily essentials and food items",
+                    InsertedBy = userId,
+                    InsertedDate = insertedDate,
                 }
             );
 
@@ -59,7 +66,9 @@ namespace ProductManagement.Infrastructure
                     Price = 699.99m,
                     StockQuantity = 50,
                     Status = ProductStatus.Active,
-                    CategoryId = electronicsCategoryId
+                    CategoryId = electronicsCategoryId,
+                    InsertedBy = userId,
+                    InsertedDate = insertedDate,
                 },
                 new Product
                 {
@@ -69,7 +78,9 @@ namespace ProductManagement.Infrastructure
                     Price = 19.99m,
                     StockQuantity = 200,
                     Status = ProductStatus.Active,
-                    CategoryId = clothingCategoryId
+                    CategoryId = clothingCategoryId,
+                    InsertedBy = userId,
+                    InsertedDate = insertedDate,
                 },
                 new Product
                 {
@@ -79,7 +90,9 @@ namespace ProductManagement.Infrastructure
                     Price = 4.99m,
                     StockQuantity = 100,
                     Status = ProductStatus.Active,
-                    CategoryId = groceriesCategoryId
+                    CategoryId = groceriesCategoryId,
+                    InsertedBy = userId,
+                    InsertedDate = insertedDate,
                 }
             );
         }

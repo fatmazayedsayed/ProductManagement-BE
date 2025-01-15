@@ -29,7 +29,7 @@ namespace ProductManagement.API.CategoryEndpoint
             // Check if the result is null (indicating failure)
             if (result == null)
             {
-                await SendAsync(new { Message = "Category creation failed." }, statusCode: 400, cancellation: ct);
+                await SendAsync(new { Message = "login failed." }, statusCode: 400, cancellation: ct);
                 return;
             }
 

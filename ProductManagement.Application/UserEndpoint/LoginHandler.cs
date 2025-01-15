@@ -2,6 +2,7 @@
 using ProductManagement.Application.Abstractions.DataAbstractions;
 using ProductManagement.Application.Identity;
 using ProductManagement.Domain.Models;
+using System.Net;
 
 namespace ProductManagement.Application.UserEndpoint
 {
@@ -22,10 +23,9 @@ namespace ProductManagement.Application.UserEndpoint
         {
             try
             {
-                var user = await _unitOfWork.Authentication.GetByEmailAsync(request, ct);
+                var user = await _unitOfWork.Authentication.GetByUserNameOrEmailAsync(request, ct);
 
-                var result = _passwordHasher.VerifyHashedPassword(user, user.Password, request.Password);
-                var isEqualPassword = result.Equals(PasswordVerificationResult.Success);
+               var isEqualPassword = string.Equals(user.Password, CryptoUtils.PBKDF2Hash(request.Password));
 
                 if (isEqualPassword)
                 {

@@ -8,7 +8,7 @@ namespace ProductManagement.Application.Abstractions.DataAbstractions
     {
         Task<UserDetailsDTO?> GetUserByIdAsync(Guid id, CancellationToken cancellationToken);
         Task<User?> FindUserByIdAsync(Guid id);
-        Task<User?> GetByEmailAsync(Login request, CancellationToken cancellationToken);
+        Task<User?> GetByUserNameOrEmailAsync(Login request, CancellationToken cancellationToken);
         Task<bool> IsFound(string Email, Guid Id);
         Task<User?> GetUserByMailAsync(string Email, CancellationToken cancellationToken);
         Task<User?> GetUserProfileAsync(Guid id, CancellationToken cancellationToken);

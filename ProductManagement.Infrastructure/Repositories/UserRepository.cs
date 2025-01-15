@@ -9,9 +9,9 @@ namespace ProductManagement.Infrastructure.Repositories
 {
     public class UserRepository(ProductManagementDbContext context) : IUserRepository
     {
-        public async Task<User?> GetByEmailAsync(Login request, CancellationToken cancellationToken)
+        public async Task<User?> GetByUserNameOrEmailAsync(Login request, CancellationToken cancellationToken)
         {
-            var result = await context.Users.Where(e => e.Email == request.EmailAddress)
+            var result = await context.Users.Where(e => e.Email == request.UserName || e.UserName==request.UserName)
                   .FirstOrDefaultAsync(cancellationToken);
             return result;
         }
