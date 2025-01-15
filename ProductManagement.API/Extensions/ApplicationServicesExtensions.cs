@@ -1,6 +1,8 @@
-﻿using ProductManagement.API.CategoryEndpoint.Create;
-using ProductManagement.Application.Abstractions.DataAbstractions;
+﻿using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using ProductManagement.API.CategoryEndpoint.Create;
 using ProductManagement.Application.CategoryEndpoint.Update;
+using ProductManagement.Application.Identity;
+using ProductManagement.Application.UserEndpoint;
 
 namespace ProductManagement.API.Extensions
 {
@@ -15,8 +17,11 @@ namespace ProductManagement.API.Extensions
             services.AddScoped<UpdateCategoryHandler>();
             services.AddScoped<DeleteCategoryHandler>();
 
-            #endregion  
+            #endregion
 
+
+            services.AddScoped<LoginHandler>();
+            services.AddScoped<TokenAuthentication>();
             return services;
         }
     }

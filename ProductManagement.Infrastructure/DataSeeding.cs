@@ -1,19 +1,28 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProductManagement.Common.Enum;
 using ProductManagement.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProductManagement.Infrastructure
 {
-    
-   public static class DataSeeding
+
+    public static class DataSeeding
     {
         public static void SeedData(this ModelBuilder modelBuilder)
         {
+
+            //seed Admin User
+
+            modelBuilder.Entity<User>().HasData(
+               new User
+               {
+                   Id = Guid.NewGuid(),
+                   UserName = "admin",
+                   Email = "Admin@urwave.com",
+                   IsActive = true,
+                   UserType=UserType.Admin,
+                   Password = "f99c5521e65bcf281a101f9aa73351179c8e4daf"//admin
+               });
+
             // Seed Categories
             var electronicsCategoryId = Guid.NewGuid();
             var clothingCategoryId = Guid.NewGuid();

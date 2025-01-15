@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ProductManagement.API.CategoryEndpoint.Create
+﻿namespace ProductManagement.API.CategoryEndpoint.Create
 {
     public class GetCategoryRequest
     {

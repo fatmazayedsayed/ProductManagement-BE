@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ProductManagement.Application.CategoryEndpoint.CommonDTO
+﻿namespace ProductManagement.Application.CategoryEndpoint.CommonDTO
 {
     public class CategoryRecord
     {

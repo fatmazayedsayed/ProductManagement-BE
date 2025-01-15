@@ -1,5 +1,4 @@
-﻿using ProductManagement.Common.DTO.Common;
-using ProductManagement.Common.DTO.LookUps;
+﻿using ProductManagement.Common.DTO.LookUps;
 using ProductManagement.Domain.Models;
 using ProductManagement.Common.DTO.CategoryDTO;
 using ProductManagement.API.CategoryEndpoint.Create;

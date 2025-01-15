@@ -1,7 +1,6 @@
 using FastEndpoints;
 using Microsoft.OpenApi.Models;
 using NLog.Web;
-using ProductManagement.API.CategoryEndpoint.Create;
 using ProductManagement.API.Extensions;
 using ProductManagement.API.Filters;
 
@@ -34,12 +33,19 @@ builder.Services.AddControllers(config =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    c.SwaggerDoc("Authentication", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Authentication API",
+        Description = "API documentation for Authentication management.",
+    });
     c.SwaggerDoc("Category", new OpenApiInfo
     {
         Version = "v1",
         Title = "Category API",
         Description = "API documentation for Category management.",
     });
+
 
     c.SwaggerDoc("Product", new OpenApiInfo
     {
@@ -48,7 +54,7 @@ builder.Services.AddSwaggerGen(c =>
         Description = "API documentation for Product management.",
     });
 
-    
+
 });
 
 // Register authentication and application services
@@ -56,7 +62,7 @@ builder.InitSwagger();
 builder.Services.AddHttpContextAccessor();
 builder.RegisterAuthentication();
 
- 
+
 
 // Configure logging
 builder.Logging.ClearProviders();
@@ -75,6 +81,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
+    c.SwaggerEndpoint("/swagger/Authentication/swagger.json", "Authentication API");
     c.SwaggerEndpoint("/swagger/Category/swagger.json", "Category API");
     c.SwaggerEndpoint("/swagger/Product/swagger.json", "Product API");
 

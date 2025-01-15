@@ -14,4 +14,14 @@
         Active = 1,
 
     }
+    public enum ClaimType
+    {
+        UserId,
+        AuthZ,
+    }
+    public enum UserType
+    {
+        User,
+        Admin,
+    }
 }

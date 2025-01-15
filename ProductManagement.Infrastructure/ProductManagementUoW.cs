@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ProductManagement.Application.Abstractions.DataAbstractions;
+using ProductManagement.Application.Identity;
 using ProductManagement.Domain.Models;
 
 namespace ProductManagement.Infrastructure;
@@ -9,14 +10,17 @@ public class ProductManagementUoW : IUnitOfWork
 {
     private readonly ProductManagementDbContext _context;
     private readonly IConfiguration _Configuration;
+    public ICurrentSessionProvider CurrentSessionProvider { get; }
     public ICategoryRepository Category { get; }
+    public IUserRepository Authentication { get; }
 
     public ProductManagementUoW(ProductManagementDbContext context, IConfiguration _configuration,
-          ICategoryRepository category)
+          IUserRepository authentication, ICategoryRepository category)
     {
         _context = context;
         _Configuration = _configuration;
         Category = category;
+        Authentication = authentication;
 
     }
 
@@ -33,8 +37,8 @@ public class ProductManagementUoW : IUnitOfWork
     }
     public async Task SaveChangesAsync(CancellationToken cancellationToken)
     {
-        //var userId = CurrentSessionProvider.GetUserId();
-        //SetAuditableProperties(userId);
+        var userId = CurrentSessionProvider.GetUserId();
+        SetAuditableProperties(userId);
 
         //var auditEntries = HandleAuditingBeforeSaveChanges(userId).ToList();
         //if (auditEntries.Any())

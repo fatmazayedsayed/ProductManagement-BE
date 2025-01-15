@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using ProductManagement.Domain.Models;
-using ProductManagement.Application.Abstractions;
 
 namespace ProductManagement.Infrastructure.Extensions
 {
@@ -18,8 +17,10 @@ namespace ProductManagement.Infrastructure.Extensions
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
 
-            // services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddScoped<IUnitOfWork, ProductManagementUoW>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 

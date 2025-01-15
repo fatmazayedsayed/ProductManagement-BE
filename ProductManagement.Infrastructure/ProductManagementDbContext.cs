@@ -1,7 +1,4 @@
-﻿using System.Text.Json;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProductManagement.Common.Enum;
+﻿using Microsoft.EntityFrameworkCore;
 using ProductManagement.Domain.Models;
 
 namespace ProductManagement.Infrastructure;
@@ -17,6 +14,7 @@ public partial class ProductManagementDbContext : DbContext
     {
     }
 
+    public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<Category> Categories { get; set; }
     public virtual DbSet<Product> Product { get; set; }

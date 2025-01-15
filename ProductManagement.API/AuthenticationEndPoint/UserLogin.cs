@@ -1,28 +1,28 @@
 ﻿using FastEndpoints;
 using Microsoft.AspNetCore.Mvc;
-using ProductManagement.Application.CategoryEndpoint.Update;
+using ProductManagement.Application.UserEndpoint;
 using Http = FastEndpoints.Http;
 
 namespace ProductManagement.API.CategoryEndpoint
 {
-    [ApiExplorerSettings(GroupName = "Category")]
-    public class UpdateCategory : Endpoint<UpdateCategoryRequest>
+    [ApiExplorerSettings(GroupName = "Authentication")]
+    public class UserLogin : Endpoint<Login>
     {
-        private readonly UpdateCategoryHandler _handler;
+        private readonly LoginHandler _handler;
 
-        public UpdateCategory(UpdateCategoryHandler handler)
+        public UserLogin(LoginHandler handler)
         {
             _handler = handler;
         }
 
         public override void Configure()
         {
-            Verbs(Http.PUT);
-            Routes("/api/categories");
+            Verbs(Http.POST);
+            Routes("/api/Auth");
             AllowAnonymous();
         }
 
-        public override async Task HandleAsync(UpdateCategoryRequest req, CancellationToken ct)
+        public override async Task HandleAsync(Login req, CancellationToken ct)
         {
             var result = await _handler.HandleAsync(req, ct);
 
@@ -36,7 +36,7 @@ namespace ProductManagement.API.CategoryEndpoint
             // Send success response with status code 200
             await SendAsync(new
             {
-                Message = "Category created successfully",
+                Message = "Login  successfully",
                 Data = result // Assuming result is a CategoryRecord or similar
             }, statusCode: 200, cancellation: ct);
         }
