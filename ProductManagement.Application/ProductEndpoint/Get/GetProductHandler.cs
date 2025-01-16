@@ -17,8 +17,7 @@ namespace ProductManagement.API.ProductEndpoint.Create
             try
             {
                 var records = await _unitOfWork.Product.GetAll(req, ct);
-                await _unitOfWork.SaveChangesAsync(ct);
-
+ 
                 return records;
             }
             catch (Exception ex)
