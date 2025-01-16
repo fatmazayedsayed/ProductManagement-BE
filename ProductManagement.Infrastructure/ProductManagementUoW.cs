@@ -12,19 +12,18 @@ public class ProductManagementUoW : IUnitOfWork
     private readonly IConfiguration _Configuration;
     public ICurrentSessionProvider CurrentSessionProvider { get; }
     public ICategoryRepository Category { get; }
+    public IProductRepository Product { get; }
     public IUserRepository Authentication { get; }
 
     public ProductManagementUoW(ProductManagementDbContext context, IConfiguration _configuration,
-          IUserRepository authentication, ICategoryRepository category)
+          IUserRepository authentication, ICategoryRepository category, IProductRepository product)
     {
         _context = context;
         _Configuration = _configuration;
         Category = category;
         Authentication = authentication;
-
+        Product = product;
     }
-
-
 
     public async Task StartTransactionAsync(CancellationToken cancellationToken)
     {
