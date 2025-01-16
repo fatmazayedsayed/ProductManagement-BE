@@ -21,7 +21,12 @@ namespace ProductManagement.Application.ProductRecords
             {
                 Name = dto.Name,
                 Description = dto.Description,
-                CategoryId = dto.CategoryId
+                Price = dto.Price,
+                Status = dto.Status,
+                StockQuantity = dto.StockQuantity,
+                ImageUrl = dto.ImageUrl,
+                CategoryId = dto.CategoryId,
+
             };
         }
 
@@ -32,7 +37,11 @@ namespace ProductManagement.Application.ProductRecords
                 Id = dto.Id,
                 Name = dto.Name,
                 Description = dto.Description,
-                CategoryId = dto.CategoryId
+                CategoryId = dto.CategoryId,
+                Price = dto.Price,
+                Status = dto.Status,
+                StockQuantity = dto.StockQuantity,
+                ImageUrl = dto.ImageUrl,
             };
         }
 
@@ -44,7 +53,12 @@ namespace ProductManagement.Application.ProductRecords
             {
                 Name = dto.Name,
                 Description = dto.Description,
-                CategoryId = dto.CategoryId
+                CategoryId = dto.CategoryId,
+                Price = dto.Price,
+                Status = dto.Status,
+                StockQuantity = dto.StockQuantity,
+                ImageUrl = dto.ImageUrl,
+
             };
         }
         public static ProductGetAllResult ToProductGetAllResult(this IEnumerable<ProductListDTO> products, int count)

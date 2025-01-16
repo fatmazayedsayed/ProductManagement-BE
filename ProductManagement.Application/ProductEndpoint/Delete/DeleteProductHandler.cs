@@ -1,6 +1,6 @@
 ﻿using ProductManagement.Application.Abstractions.DataAbstractions;
-using ProductManagement.Application.ProductEndpoint.Delete;
-
+using ProductManagement.Application.CommonDTO;
+ 
 namespace ProductManagement.Application.ProductEndpoint.Update
 {
     public class DeleteProductHandler
@@ -12,16 +12,16 @@ namespace ProductManagement.Application.ProductEndpoint.Update
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> HandleAsync(DeleteProductRequest req, CancellationToken ct)
+        public async Task<bool> HandleAsync(ItemRequest req, CancellationToken ct)
         {
-            var Product = await _unitOfWork.Product.GetById(req.ProductId);
+            var Product = await _unitOfWork.Product.GetById(req.ItemId);
 
             if (Product == null)
             {
                 return false; // Product not found
             }
 
-            _unitOfWork.Product.Delete(req.ProductId);
+            _unitOfWork.Product.Delete(req.ItemId);
             await _unitOfWork.SaveChangesAsync(ct);
 
             return true; // Deletion successful

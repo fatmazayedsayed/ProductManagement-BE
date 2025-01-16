@@ -1,15 +1,15 @@
 ﻿using FastEndpoints;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ProductManagement.Application.ProductEndpoint.Delete;
+using ProductManagement.Application.CommonDTO;
 using ProductManagement.Application.ProductEndpoint.Update;
 using Http = FastEndpoints.Http;
 
 namespace ProductManagement.API.ProductEndpoint
 {
-    [ApiExplorerSettings(GroupName = "Product")]
+    //[ApiExplorerSettings(GroupName = "Product")]
     [Authorize]
-    public class DeleteProductEndpoint : Endpoint<DeleteProductRequest>
+    public class DeleteProductEndpoint : Endpoint<ItemRequest>
     {
         private readonly DeleteProductHandler _handler;
 
@@ -21,10 +21,10 @@ namespace ProductManagement.API.ProductEndpoint
         public override void Configure()
         {
             Verbs(Http.DELETE);
-            Routes("/api/Products/{ProductId}");  // Dynamic route to pass ProductId as a URL parameter
-         }
+            Routes("/api/Products"); // No dynamic route parameter
+        }
 
-        public override async Task HandleAsync(DeleteProductRequest req, CancellationToken ct)
+        public override async Task HandleAsync([Microsoft.AspNetCore.Mvc.FromBody] ItemRequest req, CancellationToken ct)
         {
             // Call the handler to attempt the deletion
             bool result = await _handler.HandleAsync(req, ct);
@@ -40,7 +40,7 @@ namespace ProductManagement.API.ProductEndpoint
             await SendAsync(new
             {
                 Message = "Product deleted successfully",
-                Data = new { ProductId = req.ProductId } // Sending the ID of the deleted Product as part of the response
+                Data = new { ProductId = req.ItemId } // Sending the ID of the deleted Product as part of the response
             }, statusCode: 200, cancellation: ct);
         }
     }
