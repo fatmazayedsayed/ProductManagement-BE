@@ -27,12 +27,13 @@ namespace ProductManagement.Infrastructure.Repositories
         public async Task<IEnumerable<ProductRecord>> GetAll(GetProductRequest req, CancellationToken cancellationToken)
         {
             return await ctx.Products
+                .Include(e => e.Category)
                 .AsNoTracking()
+
                     .WhereIf(!string.IsNullOrWhiteSpace(req.Name),
                     e =>
                     e.Name.Contains(req.Name, StringComparison.OrdinalIgnoreCase)
                     )
-
                      .WhereIf(req.CategoryId != Guid.Empty && req.CategoryId != null,
                     e =>
                     e.CategoryId == req.CategoryId
@@ -41,7 +42,9 @@ namespace ProductManagement.Infrastructure.Repositories
                 {
                     Id = Product.Id,
                     Name = Product.Name,
+                    Description = Product.Description,
                     CategoryId = Product.CategoryId,
+                    CategoryName = Product.Category.Name
                 }).ToListAsync();
         }
 
@@ -72,7 +75,7 @@ namespace ProductManagement.Infrastructure.Repositories
         public async Task<bool> Delete(Guid Id)
         {
             var row = await ctx.Products.FirstOrDefaultAsync(e => e.Id == Id);
-            row.IsDeleted=true;
+            row.IsDeleted = true;
             return true;
         }
 
