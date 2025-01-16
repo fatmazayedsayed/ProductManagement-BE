@@ -19,7 +19,7 @@ namespace ProductManagement.API.ProductEndpoint
 
         public override void Configure()
         {
-            Verbs(Http.POST);
+            Verbs(Http.GET);
             Routes("/api/Products/GetProduct");
          }
 

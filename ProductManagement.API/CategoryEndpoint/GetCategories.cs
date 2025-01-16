@@ -6,8 +6,7 @@ using Http = FastEndpoints.Http;
 
 namespace ProductManagement.API.CategoryEndpoint
 {
-    [ApiExplorerSettings(GroupName = "Category")]
-    [Authorize]
+     [Authorize]
     public class GetCategories : Endpoint<GetCategoryRequest>
     {
         private readonly GetCategoryHandler _handler;

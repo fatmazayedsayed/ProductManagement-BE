@@ -7,8 +7,7 @@ using Http = FastEndpoints.Http;
 
 namespace ProductManagement.API.CategoryEndpoint
 {
-    [ApiExplorerSettings(GroupName = "Category")]
-    [Authorize]
+     [Authorize]
     public class DeleteCategoryEndpoint : Endpoint<DeleteCategoryRequest>
     {
         private readonly DeleteCategoryHandler _handler;
