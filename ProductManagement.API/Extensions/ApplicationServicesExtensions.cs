@@ -1,7 +1,9 @@
 ﻿using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using ProductManagement.API.CategoryEndpoint.Create;
+using ProductManagement.API.ProductEndpoint.Create;
 using ProductManagement.Application.CategoryEndpoint.Update;
 using ProductManagement.Application.Identity;
+using ProductManagement.Application.ProductEndpoint.Update;
 using ProductManagement.Application.UserEndpoint;
 
 namespace ProductManagement.API.Extensions
@@ -18,7 +20,14 @@ namespace ProductManagement.API.Extensions
             services.AddScoped<DeleteCategoryHandler>();
 
             #endregion
+            #region  Product
 
+            services.AddScoped<CreateProductHandler>();
+            services.AddScoped<GetProductHandler>();
+            services.AddScoped<UpdateProductHandler>();
+            services.AddScoped<DeleteProductHandler>();
+
+            #endregion
 
             services.AddScoped<LoginHandler>();
             services.AddScoped<TokenAuthentication>();
