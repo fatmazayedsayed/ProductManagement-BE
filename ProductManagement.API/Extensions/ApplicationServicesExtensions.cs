@@ -26,7 +26,7 @@ namespace ProductManagement.API.Extensions
             services.AddScoped<GetProductHandler>();
             services.AddScoped<UpdateProductHandler>();
             services.AddScoped<DeleteProductHandler>();
-
+            services.AddScoped<GetProductForViewHandler>();
             #endregion
 
             services.AddScoped<LoginHandler>();
