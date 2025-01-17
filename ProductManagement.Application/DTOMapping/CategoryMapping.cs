@@ -42,6 +42,7 @@ namespace ProductManagement.Application.CategoryRecords
         {
             return new Category
             {
+                Id = dto.Id,
                 Name = dto.Name,
                 Description = dto.Description,
                 ParentCategoryId = dto.ParentCategoryId

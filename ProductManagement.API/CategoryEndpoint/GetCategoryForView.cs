@@ -20,7 +20,7 @@ namespace ProductManagement.API.ProductEndpoint
         public override void Configure()
         {
             Verbs(Http.GET);
-            Routes("/api/Category/GetCategoryForView");
+            Routes("/api/categories/GetCategoryForView");
         }
 
         public override async Task HandleAsync(ItemRequest req, CancellationToken ct)

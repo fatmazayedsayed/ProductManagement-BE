@@ -19,8 +19,8 @@ namespace ProductManagement.API.CategoryEndpoint
         public override void Configure()
         {
             Verbs(Http.PUT);
-            Routes("/api/categories");
-         }
+             Routes("/api/categories/update");
+        }
 
         public override async Task HandleAsync(UpdateCategoryRequest req, CancellationToken ct)
         {
