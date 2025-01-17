@@ -7,8 +7,7 @@ using Http = FastEndpoints.Http;
 
 namespace ProductManagement.API.ProductEndpoint
 {
-    [ApiExplorerSettings(GroupName = "Product")]
-    [Authorize]
+     [Authorize]
     public class GetProductForView : Endpoint<ItemRequest>
     {
         private readonly GetProductForViewHandler _handler;

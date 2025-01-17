@@ -1,13 +1,11 @@
 ﻿using FastEndpoints;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using ProductManagement.API.ProductEndpoint.Create;
-using ProductManagement.Application.CommonDTO;
 using Http = FastEndpoints.Http;
 
 namespace ProductManagement.API.Dashboard
 {
-     [Authorize]
+    [Authorize]
     public class GetDashboard : EndpointWithoutRequest
     {
         private readonly GetDashboardHandler _handler;

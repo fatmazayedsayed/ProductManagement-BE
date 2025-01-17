@@ -6,8 +6,7 @@ using Http = FastEndpoints.Http;
 
 namespace ProductManagement.API.ProductEndpoint
 {
-    //[ApiExplorerSettings(GroupName = "Product")]
-    [Authorize]
+     [Authorize]
     public class DeleteProductEndpoint : Endpoint<ItemRequest>
     {
         private readonly DeleteProductHandler _handler;

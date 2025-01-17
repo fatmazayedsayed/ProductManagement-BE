@@ -6,8 +6,7 @@ using Http = FastEndpoints.Http;
 
 namespace ProductManagement.API.ProductEndpoint
 {
-    [ApiExplorerSettings(GroupName = "Product")]
-    [Authorize]
+     [Authorize]
     public class UpdateProduct : Endpoint<UpdateProductRequest>
     {
         private readonly UpdateProductHandler _handler;

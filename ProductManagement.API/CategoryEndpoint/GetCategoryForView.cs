@@ -4,7 +4,7 @@ using ProductManagement.API.ProductEndpoint.Create;
 using ProductManagement.Application.CommonDTO;
 using Http = FastEndpoints.Http;
 
-namespace ProductManagement.API.ProductEndpoint
+namespace ProductManagement.API.CategoryEndpoint
 {
     [Authorize]
     public class GetCategoryForView : Endpoint<ItemRequest>

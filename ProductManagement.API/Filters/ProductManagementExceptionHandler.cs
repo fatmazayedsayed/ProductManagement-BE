@@ -19,16 +19,7 @@ public class ProductManagementExceptionHandler : ExceptionFilterAttribute
                 };
                 context.Result = new JsonResult(userNotFound) { StatusCode = 404 };
                 break;
-            case UserRegistrationFailedException:
-                var loginFailed = new Error
-                {
-                    StatusCode = 400,
-                    StatusPhrase = $"{context.Exception.Message}",
-                    Timestamp = DateTime.Now
-                };
-                context.Result = new JsonResult(loginFailed) { StatusCode = 400 };
-                break;
-
+ 
 
             case DataException:
                 var repeatedData = new Error

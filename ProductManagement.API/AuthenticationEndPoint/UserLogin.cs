@@ -1,11 +1,9 @@
 ﻿using FastEndpoints;
-using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.UserEndpoint;
 using Http = FastEndpoints.Http;
 
-namespace ProductManagement.API.CategoryEndpoint
+namespace ProductManagement.API.AuthenticationEndPoint
 {
-    [ApiExplorerSettings(GroupName = "Authentication")]
     public class UserLogin : Endpoint<Login>
     {
         private readonly LoginHandler _handler;

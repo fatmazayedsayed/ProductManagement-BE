@@ -1,6 +1,6 @@
 ﻿namespace ProductManagement.Application.CommonDTO
 {
-    public class ItemRequest
+    public record ItemRequest
     {
          public Guid ItemId { get; set; }
 

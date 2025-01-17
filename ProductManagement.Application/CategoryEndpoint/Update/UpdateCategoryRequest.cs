@@ -2,7 +2,7 @@
 
 namespace ProductManagement.Application.CategoryEndpoint.Update
 {
-    public class UpdateCategoryRequest
+    public record UpdateCategoryRequest
     {
         [Required]
         public Guid Id { get; set; }

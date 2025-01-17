@@ -1,7 +1,5 @@
 ﻿using ProductManagement.Application.Abstractions.DataAbstractions;
-using ProductManagement.Application.CommonDTO;
 using ProductManagement.Application.ProductEndpoint.CommonDTO;
-using ProductManagement.Application.ProductRecords;
 
 namespace ProductManagement.API.ProductEndpoint.Create
 {

@@ -2,7 +2,7 @@
 
 namespace ProductManagement.API.CategoryEndpoint.Create
 {
-    public class CreateCategoryRequest
+    public record CreateCategoryRequest
     {
         [Required]
         [StringLength(50)]

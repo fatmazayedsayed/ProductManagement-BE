@@ -1,6 +1,6 @@
 ﻿namespace ProductManagement.Application.CategoryEndpoint.CommonDTO
 {
-    public class CategoryRecord
+    public record CategoryRecord
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
