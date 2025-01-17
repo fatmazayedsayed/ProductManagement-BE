@@ -1,10 +1,9 @@
-﻿namespace ProductManagement.API.ProductEndpoint.Create
-{
-    public class GetProductRequest
-    {
-       
-        public string Name { get; set; }  
+﻿using ProductManagement.Common.DTO.Common;
 
-        public Guid? CategoryId { get; set; }
+namespace ProductManagement.API.ProductEndpoint.Create
+{
+    public record GetProductRequest : BaseListingInput
+    {
+       public Guid? CategoryId { get; set; }
     }
 }

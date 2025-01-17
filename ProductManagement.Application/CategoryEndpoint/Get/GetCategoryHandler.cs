@@ -1,5 +1,6 @@
 ﻿using ProductManagement.Application.Abstractions.DataAbstractions;
 using ProductManagement.Application.CategoryEndpoint.CommonDTO;
+using ProductManagement.Common.DTO.Common;
 
 namespace ProductManagement.API.CategoryEndpoint.Create
 {
@@ -12,13 +13,13 @@ namespace ProductManagement.API.CategoryEndpoint.Create
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<CategoryRecord>> HandleAsync(GetCategoryRequest req, CancellationToken ct)
+        public async Task<GetAllResult<CategoryRecord>> HandleAsync(GetCategoryRequest req, CancellationToken ct)
         {
             try
             {
                 var records = await _unitOfWork.Category.GetAll(req, ct);
  
-                return records;
+                return new GetAllResult<CategoryRecord> { Records = records.Skip(req.PageNumber).Take(req.PageSize), Count = records.Count() };
             }
             catch (Exception ex)
             {

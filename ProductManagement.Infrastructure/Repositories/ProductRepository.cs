@@ -30,9 +30,9 @@ namespace ProductManagement.Infrastructure.Repositories
                 .Include(e => e.Category)
                 .AsNoTracking()
 
-                    .WhereIf(!string.IsNullOrWhiteSpace(req.Name),
+                    .WhereIf(!string.IsNullOrWhiteSpace(req.SearchString),
                     e =>
-                    e.Name.Contains(req.Name, StringComparison.OrdinalIgnoreCase)
+                    e.Name.Contains(req.SearchString, StringComparison.OrdinalIgnoreCase)
                     )
                      .WhereIf(req.CategoryId != Guid.Empty && req.CategoryId != null,
                     e =>

@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.API.CategoryEndpoint.Create;
+using ProductManagement.Application.CategoryEndpoint.CommonDTO;
+using ProductManagement.Common.DTO.Common;
 using Http = FastEndpoints.Http;
 
 namespace ProductManagement.API.CategoryEndpoint
@@ -18,16 +20,16 @@ namespace ProductManagement.API.CategoryEndpoint
 
         public override void Configure()
         {
-            Verbs(Http.POST);
+            Verbs(Http.GET);
             Routes("/api/categories/GetCategory");
          }
 
         public override async Task HandleAsync(GetCategoryRequest req, CancellationToken ct)
         {
-            var result = await _handler.HandleAsync(req, ct);
+           var result = await _handler.HandleAsync(req, ct);
 
             // Check if the result is null or an empty collection
-            if (result == null || !result.Any())
+            if (result == null || result.Count==0)
             {
                 await SendAsync(new { Message = "No categories found." }, statusCode: 404, cancellation: ct); // Returning 404 if no categories found
                 return;

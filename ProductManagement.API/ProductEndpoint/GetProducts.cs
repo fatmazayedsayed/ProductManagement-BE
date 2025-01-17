@@ -21,14 +21,14 @@ namespace ProductManagement.API.ProductEndpoint
         {
             Verbs(Http.GET);
             Routes("/api/Products/GetProduct");
-         }
+        }
 
         public override async Task HandleAsync(GetProductRequest req, CancellationToken ct)
         {
             var result = await _handler.HandleAsync(req, ct);
 
             // Check if the result is null or an empty collection
-            if (result == null || !result.Any())
+            if (result == null || result.Count == 0)
             {
                 await SendAsync(new { Message = "No Products found." }, statusCode: 404, cancellation: ct); // Returning 404 if no Products found
                 return;
