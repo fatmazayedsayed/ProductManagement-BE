@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProductManagement.Infrastructure;
 
@@ -11,9 +12,11 @@ using ProductManagement.Infrastructure;
 namespace ProductManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(ProductManagementDbContext))]
-    partial class ProductManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250117081842_seed data with Sub category")]
+    partial class seeddatawithSubcategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

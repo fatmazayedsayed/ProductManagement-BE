@@ -28,9 +28,9 @@ namespace ProductManagement.Infrastructure.Repositories
         {
             return await ctx.Categories
                 .AsNoTracking()
-                    .WhereIf(!string.IsNullOrWhiteSpace(req.Name),
+                    .WhereIf(!string.IsNullOrWhiteSpace(req.SearchString),
                     e =>
-                    e.Name.Contains(req.Name, StringComparison.OrdinalIgnoreCase)
+                    e.Name.Contains(req.SearchString, StringComparison.OrdinalIgnoreCase)
                     )
 
                      .WhereIf(req.ParentCategoryId != Guid.Empty && req.ParentCategoryId != null,

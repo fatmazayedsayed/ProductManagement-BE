@@ -13,88 +13,109 @@ namespace ProductManagement.Infrastructure
             //seed Admin User
             var userId = Guid.NewGuid();
             var insertedDate = DateTime.Now;
-            modelBuilder.Entity<User>().HasData(
-               new User
-               {
-                   Id =userId,
-                   UserName = "admin",
-                   Email = "Admin@urwave.com",
-                   IsActive = true,
-                   UserType=UserType.Admin,
-                   Password = "f99c5521e65bcf281a101f9aa73351179c8e4daf"//admin
-               });
+            SeedAdmin(userId, insertedDate, modelBuilder);
+
 
             // Seed Categories
             var electronicsCategoryId = Guid.NewGuid();
             var clothingCategoryId = Guid.NewGuid();
             var groceriesCategoryId = Guid.NewGuid();
 
-            modelBuilder.Entity<Category>().HasData(
-                new Category
-                {
-                    Id = electronicsCategoryId,
-                    Name = "Electronics",
-                    Description = "Devices and gadgets",
-                    InsertedBy= userId,
-                    InsertedDate = insertedDate,
-                },
-                new Category
-                {
-                    Id = clothingCategoryId,
-                    Name = "Clothing",
-                    Description = "Men's and Women's apparel",
-                    InsertedBy = userId,
-                    InsertedDate = insertedDate,
-                },
-                new Category
-                {
-                    Id = groceriesCategoryId,
-                    Name = "Groceries",
-                    Description = "Daily essentials and food items",
-                    InsertedBy = userId,
-                    InsertedDate = insertedDate,
-                }
-            );
+            SeedCategory(userId, insertedDate, modelBuilder, "electronics", electronicsCategoryId,null);
+
+            SeedSubCategory(userId, insertedDate, modelBuilder, "electronics", electronicsCategoryId);
+
+            SeedCategory(userId, insertedDate, modelBuilder, "clothing", clothingCategoryId, null);
+            SeedSubCategory(userId, insertedDate, modelBuilder, "clothing", clothingCategoryId);
+
+            SeedCategory(userId, insertedDate, modelBuilder, "groceries", groceriesCategoryId, null);
+            SeedSubCategory(userId, insertedDate, modelBuilder, "groceries", groceriesCategoryId);
 
             // Seed Products
+            SeedProduct(userId, insertedDate, modelBuilder, electronicsCategoryId);
+            SeedProduct(userId, insertedDate, modelBuilder, electronicsCategoryId);
+
+            SeedProduct(userId, insertedDate, modelBuilder, clothingCategoryId);
+            SeedProduct(userId, insertedDate, modelBuilder, clothingCategoryId);
+
+            SeedProduct(userId, insertedDate, modelBuilder, groceriesCategoryId);
+            SeedProduct(userId, insertedDate, modelBuilder, groceriesCategoryId);
+
+
+
+
+        }
+
+        private static void SeedProduct(Guid userId, DateTime insertedDate, ModelBuilder modelBuilder, Guid categoryId)
+        {
+
             modelBuilder.Entity<Product>().HasData(
-                new Product
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Smartphone",
-                    Description = "Latest model smartphone",
-                    Price = 699.99m,
-                    StockQuantity = 50,
-                    Status = ProductStatus.Active,
-                    CategoryId = electronicsCategoryId,
-                    InsertedBy = userId,
-                    InsertedDate = insertedDate,
-                },
-                new Product
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "T-Shirt",
-                    Description = "Cotton T-shirt",
-                    Price = 19.99m,
-                    StockQuantity = 200,
-                    Status = ProductStatus.Active,
-                    CategoryId = clothingCategoryId,
-                    InsertedBy = userId,
-                    InsertedDate = insertedDate,
-                },
-                new Product
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Pasta",
-                    Description = "Organic pasta",
-                    Price = 4.99m,
-                    StockQuantity = 100,
-                    Status = ProductStatus.Active,
-                    CategoryId = groceriesCategoryId,
-                    InsertedBy = userId,
-                    InsertedDate = insertedDate,
-                }
-            );
+              new Product
+              {
+                  Id = Guid.NewGuid(),
+                  Name = GenerateRandomString(5),
+                  Description = GenerateRandomString(20),
+                  Price = 699.99m,
+                  StockQuantity = 50,
+                  Status = ProductStatus.Active,
+                  CategoryId = categoryId,
+                  InsertedBy = userId,
+                  InsertedDate = insertedDate,
+              }
+
+          );
+        }
+
+        private static void SeedSubCategory(Guid userId, DateTime insertedDate, ModelBuilder modelBuilder, string Name, Guid parentId)
+        {
+            Random random = new Random();
+            int range = random.Next(2, 20);
+
+            var catId = Guid.Empty;
+            for (int i = 0; i < range; i++)
+            {
+                catId = Guid.NewGuid();
+                SeedCategory(userId, insertedDate, modelBuilder, string.Concat(Name, " ", GenerateRandomString(5)), catId, parentId);
+                SeedProduct(userId, insertedDate, modelBuilder, catId);
+
+            }
+        }
+
+        private static void SeedCategory(Guid userId, DateTime insertedDate, ModelBuilder modelBuilder, string Name, Guid rowId, Guid? ParentId)
+        {
+            modelBuilder.Entity<Category>().HasData(
+              new Category
+              {
+                  Id = rowId,
+                  Name = Name,
+                  Description = Name + " Description",
+                  ParentCategoryId = ParentId,
+                  InsertedBy = userId,
+                  InsertedDate = insertedDate,
+              });
+
+        }
+
+        private static void SeedAdmin(Guid userId, DateTime insertedDate, ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasData(
+               new User
+               {
+                   Id = userId,
+                   UserName = "admin",
+                   Email = "Admin@urwave.com",
+                   IsActive = true,
+                   UserType = UserType.Admin,
+                   Password = "f99c5521e65bcf281a101f9aa73351179c8e4daf"//admin
+               });
+        }
+
+        private const string Charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        public static string GenerateRandomString(int length)
+        {
+            return string.Create<object?>(length, null,
+                static (chars, _) => Random.Shared.GetItems(Charset, chars));
         }
     }
 
