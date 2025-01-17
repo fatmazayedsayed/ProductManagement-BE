@@ -19,6 +19,7 @@ public partial class Category : BaseModel
 
     [Required]
     public CategoryStatus Status { get; set; } = CategoryStatus.Active; // Enum for status with a default value.
+    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 
 
 

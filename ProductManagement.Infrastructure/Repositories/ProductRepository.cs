@@ -81,6 +81,11 @@ namespace ProductManagement.Infrastructure.Repositories
             return true;
         }
 
+        public async Task<int> CountAsync()
+        {
+            return   ctx.Products.AsNoTracking().Count();
+        }
+
 
     }
 }

@@ -7,11 +7,16 @@ using ProductManagement.Common.DTO.CategoryDTO;
 using ProductManagement.API.CategoryEndpoint.Create;
 using Abp.Linq.Extensions;
 using ProductManagement.Application.CategoryEndpoint.CommonDTO;
+using ProductManagement.Application.ProductEndpoint.CommonDTO;
 
 namespace ProductManagement.Infrastructure.Repositories
 {
     public class CategoryRepository(ProductManagementDbContext ctx) : ICategoryRepository
     {
+        public async Task<int> CountAsync()
+        {
+            return ctx.Products.AsNoTracking().Count();
+        }
         public async Task<Category?> Create(Category request)
         {
             var res = await ctx.Categories.AddAsync(request);
@@ -22,7 +27,6 @@ namespace ProductManagement.Infrastructure.Repositories
             var res = ctx.Categories.Any(e => e.Name == request.Name && e.Id != request.Id);
             return res;
         }
-
 
         public async Task<IEnumerable<CategoryRecord>> GetAll(GetCategoryRequest req, CancellationToken cancellationToken)
         {
@@ -43,8 +47,7 @@ namespace ProductManagement.Infrastructure.Repositories
 
         }
 
-
-        public async Task<IEnumerable<LookUpDTO>> CategoriesLookUp(CancellationToken cancellationToken)
+       public async Task<IEnumerable<LookUpDTO>> CategoriesLookUp(CancellationToken cancellationToken)
         {
             return await ctx.Categories.AsNoTracking()
                  .Select(Category => new LookUpDTO
@@ -87,6 +90,17 @@ namespace ProductManagement.Infrastructure.Repositories
             return true;
         }
 
-
+        public async Task<IEnumerable<ProductsPerCategory>> GetProductsPerCategoryAsync()
+        {
+            var productsPerCategory = await ctx.Categories.AsNoTracking()
+                
+           .Select(c => new ProductsPerCategory
+           {
+               CategoryName = c.Name,
+               ProductCount = c.Products.Count()
+           })
+           .ToListAsync();
+            return productsPerCategory;
+        }
     }
 }

@@ -34,6 +34,8 @@ namespace ProductManagement.API.Extensions
 
             services.AddScoped<LoginHandler>();
             services.AddScoped<TokenAuthentication>();
+
+            services.AddScoped<GetDashboardHandler>();
              return services;
         }
     }

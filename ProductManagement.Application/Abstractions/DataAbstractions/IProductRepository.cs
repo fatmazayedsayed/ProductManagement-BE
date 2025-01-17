@@ -16,5 +16,6 @@ namespace ProductManagement.Application.Abstractions.DataAbstractions
 
         Task<IEnumerable<ProductRecord>> GetAll(GetProductRequest req, CancellationToken cancellationToken);
         Task<IEnumerable<LookUpDTO>> ProductsLookUp(CancellationToken cancellationToken);
+        Task<int> CountAsync();
     }
 }
