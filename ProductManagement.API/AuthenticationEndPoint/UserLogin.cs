@@ -1,6 +1,7 @@
 ﻿using FastEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.UserEndpoint;
+using ProductManagement.Common.Enum;
 using Http = FastEndpoints.Http;
 
 namespace ProductManagement.API.CategoryEndpoint
@@ -29,15 +30,17 @@ namespace ProductManagement.API.CategoryEndpoint
             // Check if the result is null (indicating failure)
             if (result == null)
             {
-                await SendAsync(new { Message = "login failed." }, statusCode: 400, cancellation: ct);
+                await SendAsync(new { isSuccess = false, Message = "login failed." }, statusCode: 400, cancellation: ct);
                 return;
             }
 
             // Send success response with status code 200
             await SendAsync(new
             {
+                isSuccess = true,
                 Message = "Login  successfully",
-                Data = result // Assuming result is a CategoryRecord or similar
+                Data = result, // Assuming result is a CategoryRecord or similar
+                userType= result.UserType,
             }, statusCode: 200, cancellation: ct);
         }
 

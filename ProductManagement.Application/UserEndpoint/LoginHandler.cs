@@ -39,6 +39,7 @@ namespace ProductManagement.Application.UserEndpoint
                             UserType = user.UserType
                         }),
                         Id = user.Id,
+                        UserType = user.UserType
 
                     };
                 }
