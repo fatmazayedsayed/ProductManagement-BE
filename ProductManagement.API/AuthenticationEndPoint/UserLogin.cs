@@ -1,7 +1,6 @@
 ﻿using FastEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.UserEndpoint;
-using ProductManagement.Common.Enum;
 using Http = FastEndpoints.Http;
 
 namespace ProductManagement.API.CategoryEndpoint

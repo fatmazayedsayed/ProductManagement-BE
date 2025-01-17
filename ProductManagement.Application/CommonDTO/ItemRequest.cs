@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace ProductManagement.Application.CommonDTO
+﻿namespace ProductManagement.Application.CommonDTO
 {
     public class ItemRequest
     {

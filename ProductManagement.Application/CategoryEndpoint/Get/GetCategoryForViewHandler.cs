@@ -2,8 +2,6 @@
 using ProductManagement.Application.CategoryEndpoint.CommonDTO;
 using ProductManagement.Application.CategoryRecords;
 using ProductManagement.Application.CommonDTO;
-using ProductManagement.Application.ProductEndpoint.CommonDTO;
-using ProductManagement.Application.ProductRecords;
 
 namespace ProductManagement.API.ProductEndpoint.Create
 {

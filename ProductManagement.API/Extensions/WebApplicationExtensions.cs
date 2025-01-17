@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using ProductManagement.Application.Identity;
 using System.Text;
 namespace ProductManagement.API.Extensions

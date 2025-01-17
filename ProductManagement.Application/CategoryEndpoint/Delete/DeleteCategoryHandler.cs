@@ -1,5 +1,5 @@
 ﻿using ProductManagement.Application.Abstractions.DataAbstractions;
-using ProductManagement.Application.CategoryEndpoint.Delete;
+using ProductManagement.Application.CommonDTO;
 
 namespace ProductManagement.Application.CategoryEndpoint.Update
 {
@@ -12,16 +12,16 @@ namespace ProductManagement.Application.CategoryEndpoint.Update
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> HandleAsync(DeleteCategoryRequest req, CancellationToken ct)
+        public async Task<bool> HandleAsync(ItemRequest req, CancellationToken ct)
         {
-            var category = await _unitOfWork.Category.GetById(req.CategoryId);
+            var category = await _unitOfWork.Category.GetById(req.ItemId);
 
             if (category == null)
             {
                 return false; // Category not found
             }
 
-            _unitOfWork.Category.Delete(req.CategoryId);
+            _unitOfWork.Category.Delete(req.ItemId);
             await _unitOfWork.SaveChangesAsync(ct);
 
             return true; // Deletion successful

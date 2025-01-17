@@ -1,12 +1,11 @@
 ﻿using FastEndpoints;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.CategoryEndpoint.Update;
 using Http = FastEndpoints.Http;
 
 namespace ProductManagement.API.CategoryEndpoint
 {
-     [Authorize]
+    [Authorize]
     public class UpdateCategory : Endpoint<UpdateCategoryRequest>
     {
         private readonly UpdateCategoryHandler _handler;

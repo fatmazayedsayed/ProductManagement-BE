@@ -32,7 +32,8 @@ namespace ProductManagement.Application.CategoryRecords
                 Id = dto.Id,
                 Name = dto.Name,
                 Description = dto.Description,
-                ParentCategoryId = dto.ParentCategoryId
+                ParentCategoryId = dto.ParentCategoryId,
+                ParentCategoryName=dto.ParentCategory?.Name
             };
         }
 

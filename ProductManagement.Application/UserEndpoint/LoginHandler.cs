@@ -2,7 +2,6 @@
 using ProductManagement.Application.Abstractions.DataAbstractions;
 using ProductManagement.Application.Identity;
 using ProductManagement.Domain.Models;
-using System.Net;
 
 namespace ProductManagement.Application.UserEndpoint
 {

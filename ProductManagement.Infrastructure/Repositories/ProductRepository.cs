@@ -60,7 +60,9 @@ namespace ProductManagement.Infrastructure.Repositories
         }
         public async Task<Product?> GetById(Guid id)
         {
-            return await ctx.Products.FirstOrDefaultAsync(e => e.Id == id);
+            return await ctx.Products
+                .Include (e => e.Category)
+                .FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task<Product?> Update(Product request)

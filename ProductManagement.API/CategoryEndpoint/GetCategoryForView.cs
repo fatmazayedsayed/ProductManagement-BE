@@ -1,13 +1,12 @@
 ﻿using FastEndpoints;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using ProductManagement.API.ProductEndpoint.Create;
 using ProductManagement.Application.CommonDTO;
 using Http = FastEndpoints.Http;
 
 namespace ProductManagement.API.ProductEndpoint
 {
-     [Authorize]
+    [Authorize]
     public class GetCategoryForView : Endpoint<ItemRequest>
     {
         private readonly GetCategoryForViewHandler _handler;

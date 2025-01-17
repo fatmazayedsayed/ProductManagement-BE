@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
-using ProductManagement.API.CategoryEndpoint.Create;
+﻿using ProductManagement.API.CategoryEndpoint.Create;
 using ProductManagement.API.ProductEndpoint.Create;
 using ProductManagement.Application.CategoryEndpoint.Update;
 using ProductManagement.Application.Identity;

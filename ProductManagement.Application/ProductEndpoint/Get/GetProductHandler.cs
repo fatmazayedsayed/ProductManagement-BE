@@ -1,5 +1,4 @@
 ﻿using ProductManagement.Application.Abstractions.DataAbstractions;
-using ProductManagement.Application.CategoryEndpoint.CommonDTO;
 using ProductManagement.Application.ProductEndpoint.CommonDTO;
 using ProductManagement.Common.DTO.Common;
 

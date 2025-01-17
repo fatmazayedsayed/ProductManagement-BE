@@ -1,6 +1,5 @@
 ﻿using FastEndpoints;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Application.CommonDTO;
 using ProductManagement.Application.ProductEndpoint.Update;
 using Http = FastEndpoints.Http;
@@ -24,7 +23,7 @@ namespace ProductManagement.API.ProductEndpoint
             Routes("/api/Products/DeleteProduct"); // No dynamic route parameter
         }
 
-        public override async Task HandleAsync([Microsoft.AspNetCore.Mvc.FromBody] ItemRequest req, CancellationToken ct)
+        public override async Task HandleAsync(ItemRequest req, CancellationToken ct)
         {
             // Call the handler to attempt the deletion
             bool result = await _handler.HandleAsync(req, ct);

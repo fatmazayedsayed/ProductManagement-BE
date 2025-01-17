@@ -66,7 +66,9 @@ namespace ProductManagement.Infrastructure.Repositories
         }
         public async Task<Category?> GetById(Guid id)
         {
-            return await ctx.Categories.FirstOrDefaultAsync(e => e.Id == id);
+            return await ctx.Categories
+                .Include(e=>e.ParentCategory).AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task<Category?> Update(Category request)

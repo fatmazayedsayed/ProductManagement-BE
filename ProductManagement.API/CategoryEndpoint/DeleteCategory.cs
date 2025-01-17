@@ -1,14 +1,13 @@
 ﻿using FastEndpoints;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using ProductManagement.Application.CategoryEndpoint.Delete;
 using ProductManagement.Application.CategoryEndpoint.Update;
+using ProductManagement.Application.CommonDTO;
 using Http = FastEndpoints.Http;
 
 namespace ProductManagement.API.CategoryEndpoint
 {
-     [Authorize]
-    public class DeleteCategoryEndpoint : Endpoint<DeleteCategoryRequest>
+    [Authorize]
+    public class DeleteCategoryEndpoint : Endpoint<ItemRequest>
     {
         private readonly DeleteCategoryHandler _handler;
 
@@ -23,7 +22,7 @@ namespace ProductManagement.API.CategoryEndpoint
             Routes("/api/categories/DeleteCategory");  // Dynamic route to pass CategoryId as a URL parameter
          }
 
-        public override async Task HandleAsync(DeleteCategoryRequest req, CancellationToken ct)
+        public override async Task HandleAsync(ItemRequest req, CancellationToken ct)
         {
             // Call the handler to attempt the deletion
             bool result = await _handler.HandleAsync(req, ct);
@@ -39,7 +38,7 @@ namespace ProductManagement.API.CategoryEndpoint
             await SendAsync(new
             {
                 Message = "Category deleted successfully",
-                Data = new { CategoryId = req.CategoryId } // Sending the ID of the deleted category as part of the response
+                Data = new { CategoryId = req.ItemId } // Sending the ID of the deleted category as part of the response
             }, statusCode: 200, cancellation: ct);
         }
     }

@@ -37,6 +37,7 @@ namespace ProductManagement.Application.ProductRecords
                 Id = dto.Id,
                 Name = dto.Name,
                 Description = dto.Description,
+                CategoryName=dto.Category.Name,
                 CategoryId = dto.CategoryId,
                 Price = dto.Price,
                 Status = dto.Status,
