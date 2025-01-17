@@ -22,6 +22,14 @@ public partial class ProductManagementDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // Apply global query filter to all entities inheriting from BaseModel
+        modelBuilder.Entity<User>()
+            .HasQueryFilter(m => !m.IsDeleted);
+        modelBuilder.Entity<Category>()
+            .HasQueryFilter(m => !m.IsDeleted);
+        modelBuilder.Entity<Category>()
+            .HasQueryFilter(m => !m.IsDeleted);
+
         base.OnModelCreating(modelBuilder);
 
         // Seed data

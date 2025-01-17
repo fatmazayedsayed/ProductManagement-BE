@@ -29,5 +29,4 @@ namespace ProductManagement.Application.Identity
 
         public Guid? GetUserId() => _currentUserId;
     }
-
 }

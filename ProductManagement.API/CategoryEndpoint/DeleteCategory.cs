@@ -20,7 +20,7 @@ namespace ProductManagement.API.CategoryEndpoint
         public override void Configure()
         {
             Verbs(Http.DELETE);
-            Routes("/api/categories/{CategoryId}");  // Dynamic route to pass CategoryId as a URL parameter
+            Routes("/api/categories/DeleteCategory");  // Dynamic route to pass CategoryId as a URL parameter
          }
 
         public override async Task HandleAsync(DeleteCategoryRequest req, CancellationToken ct)

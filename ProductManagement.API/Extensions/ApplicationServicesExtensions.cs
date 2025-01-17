@@ -12,6 +12,7 @@ namespace ProductManagement.API.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+
             #region  Category
 
             services.AddScoped<CreateCategoryHandler>();
@@ -33,7 +34,7 @@ namespace ProductManagement.API.Extensions
 
             services.AddScoped<LoginHandler>();
             services.AddScoped<TokenAuthentication>();
-            return services;
+             return services;
         }
     }
 

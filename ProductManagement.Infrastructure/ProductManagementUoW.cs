@@ -16,10 +16,14 @@ public class ProductManagementUoW : IUnitOfWork
     public IUserRepository Authentication { get; }
 
     public ProductManagementUoW(ProductManagementDbContext context, IConfiguration _configuration,
-          IUserRepository authentication, ICategoryRepository category, IProductRepository product)
+          IUserRepository authentication, 
+          ICategoryRepository category, IProductRepository product)
     {
-        _context = context;
+        _context = context;   
+       // CurrentSessionProvider = currentSessionProvider;
+
         _Configuration = _configuration;
+
         Category = category;
         Authentication = authentication;
         Product = product;
@@ -36,8 +40,8 @@ public class ProductManagementUoW : IUnitOfWork
     }
     public async Task SaveChangesAsync(CancellationToken cancellationToken)
     {
-        var userId = CurrentSessionProvider.GetUserId();
-        SetAuditableProperties(userId);
+        //var userId = CurrentSessionProvider.GetUserId();
+        //SetAuditableProperties(userId);
 
         //var auditEntries = HandleAuditingBeforeSaveChanges(userId).ToList();
         //if (auditEntries.Any())
