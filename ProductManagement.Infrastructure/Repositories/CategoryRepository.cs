@@ -27,29 +27,27 @@ namespace ProductManagement.Infrastructure.Repositories
         public async Task<IEnumerable<CategoryRecord>> GetAll(GetCategoryRequest req, CancellationToken cancellationToken)
         {
             return await ctx.Categories
-                .AsNoTracking()
-                    .WhereIf(!string.IsNullOrWhiteSpace(req.SearchString),
-                    e =>
-                    e.Name.Contains(req.SearchString, StringComparison.OrdinalIgnoreCase)
-                    )
+     .AsNoTracking()
+     .WhereIf(!string.IsNullOrWhiteSpace(req.SearchString),
+         e => e.Name.Contains(req.SearchString, StringComparison.OrdinalIgnoreCase))
+     .WhereIf(req.ParentCategoryId != Guid.Empty && req.ParentCategoryId != null,
+         e => e.ParentCategoryId == req.ParentCategoryId)
+     .Select(category => new CategoryRecord
+     {
+         Id = category.Id,
+         Name = category.Name,
+         ParentCategoryName = category.ParentCategory.Name,
+         ParentCategoryId = category.ParentCategoryId,
+     })
+     .ToListAsync();
 
-                     .WhereIf(req.ParentCategoryId != Guid.Empty && req.ParentCategoryId != null,
-                    e =>
-                    e.ParentCategoryId == req.ParentCategoryId
-                    )
-                .Select(Category => new CategoryRecord
-                {
-                    Id = Category.Id,
-                    Name = Category.Name,
-                    ParentCategoryId = Category.ParentCategoryId,
-                }).ToListAsync();
         }
 
 
         public async Task<IEnumerable<LookUpDTO>> CategoriesLookUp(CancellationToken cancellationToken)
         {
             return await ctx.Categories.AsNoTracking()
-                .Where(e=>e.ParentCategoryId ==null)
+                .Where(e => e.ParentCategoryId == null)
                 .Select(Category => new LookUpDTO
                 {
                     Id = Category.Id,
@@ -73,7 +71,7 @@ namespace ProductManagement.Infrastructure.Repositories
         public async Task<bool> Delete(Guid Id)
         {
             var row = await ctx.Categories.FirstOrDefaultAsync(e => e.Id == Id);
-            row.IsDeleted=true;
+            row.IsDeleted = true;
             return true;
         }
 
