@@ -19,7 +19,7 @@ namespace ProductManagement.API.CategoryEndpoint
         public override void Configure()
         {
             Verbs(Http.POST);
-            Routes("/api/categories");
+            Routes("/api/categories/create");
          }
 
         public override async Task HandleAsync(CreateCategoryRequest req, CancellationToken ct)
