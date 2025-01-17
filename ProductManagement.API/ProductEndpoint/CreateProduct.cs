@@ -20,7 +20,7 @@ namespace ProductManagement.API.ProductEndpoint
         public override void Configure()
         {
             Verbs(Http.POST);
-            Routes("/api/Products");
+            Routes("/api/Products/create");
          }
 
         public override async Task HandleAsync(CreateProductRequest req, CancellationToken ct)

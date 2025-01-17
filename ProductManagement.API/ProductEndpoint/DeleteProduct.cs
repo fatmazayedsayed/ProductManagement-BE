@@ -21,7 +21,7 @@ namespace ProductManagement.API.ProductEndpoint
         public override void Configure()
         {
             Verbs(Http.DELETE);
-            Routes("/api/Products"); // No dynamic route parameter
+            Routes("/api/Products/DeleteProduct"); // No dynamic route parameter
         }
 
         public override async Task HandleAsync([Microsoft.AspNetCore.Mvc.FromBody] ItemRequest req, CancellationToken ct)

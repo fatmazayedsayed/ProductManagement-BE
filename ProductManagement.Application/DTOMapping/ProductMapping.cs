@@ -51,6 +51,7 @@ namespace ProductManagement.Application.ProductRecords
         {
             return new Product
             {
+                Id = dto.Id,
                 Name = dto.Name,
                 Description = dto.Description,
                 CategoryId = dto.CategoryId,

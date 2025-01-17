@@ -47,6 +47,16 @@ namespace ProductManagement.Infrastructure.Repositories
         public async Task<IEnumerable<LookUpDTO>> CategoriesLookUp(CancellationToken cancellationToken)
         {
             return await ctx.Categories.AsNoTracking()
+                 .Select(Category => new LookUpDTO
+                 {
+                     Id = Category.Id,
+                     Name = Category.Name
+                 }).ToListAsync();
+        }
+
+        public async Task<IEnumerable<LookUpDTO>> ParentCategoriesLookUp(CancellationToken cancellationToken)
+        {
+            return await ctx.Categories.AsNoTracking()
                 .Where(e => e.ParentCategoryId == null)
                 .Select(Category => new LookUpDTO
                 {

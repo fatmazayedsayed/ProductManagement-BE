@@ -21,6 +21,7 @@ namespace ProductManagement.API.Extensions
             services.AddScoped<DeleteCategoryHandler>();
             services.AddScoped<GetCategoryForViewHandler>();
             services.AddScoped<GetLookUpCategoryHandler>();
+            services.AddScoped<GetLookUpParentCategoryHandler>();
 
             #endregion
             #region  Product

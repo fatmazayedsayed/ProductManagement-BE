@@ -20,7 +20,7 @@ namespace ProductManagement.API.ProductEndpoint
         public override void Configure()
         {
             Verbs(Http.PUT);
-            Routes("/api/Products");
+            Routes("/api/Products/update");
          }
 
         public override async Task HandleAsync(UpdateProductRequest req, CancellationToken ct)
@@ -30,14 +30,14 @@ namespace ProductManagement.API.ProductEndpoint
             // Check if the result is null (indicating failure)
             if (result == null)
             {
-                await SendAsync(new { Message = "Product creation failed." }, statusCode: 400, cancellation: ct);
+                await SendAsync(new { Message = "Product update failed." }, statusCode: 400, cancellation: ct);
                 return;
             }
 
             // Send success response with status code 200
             await SendAsync(new
             {
-                Message = "Product created successfully",
+                Message = "Product updated successfully",
                 Data = result // Assuming result is a ProductRecord or similar
             }, statusCode: 200, cancellation: ct);
         }

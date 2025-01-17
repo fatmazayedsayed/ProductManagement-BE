@@ -16,5 +16,6 @@ namespace ProductManagement.Application.Abstractions.DataAbstractions
 
         Task<IEnumerable<CategoryRecord>> GetAll(GetCategoryRequest req, CancellationToken cancellationToken);
         Task<IEnumerable<LookUpDTO>> CategoriesLookUp(CancellationToken cancellationToken);
+        Task<IEnumerable<LookUpDTO>> ParentCategoriesLookUp(CancellationToken cancellationToken);
     }
 }
