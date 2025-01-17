@@ -21,7 +21,7 @@ namespace ProductManagement.Application.CategoryRecords
             {
                 Name = dto.Name,
                 Description = dto.Description,
-                ParentCategoryId = dto.ParentCategoryId
+                ParentCategoryId = dto.ParentCategoryId == Guid.Empty ? null : dto.ParentCategoryId,
             };
         }
 
@@ -45,7 +45,7 @@ namespace ProductManagement.Application.CategoryRecords
                 Id = dto.Id,
                 Name = dto.Name,
                 Description = dto.Description,
-                ParentCategoryId = dto.ParentCategoryId
+                ParentCategoryId = dto.ParentCategoryId==Guid.Empty?null : dto.ParentCategoryId,
             };
         }
         public static CategoryGetAllResult ToCategoryGetAllResult(this IEnumerable<CategoryListDTO> Categories, int count)
