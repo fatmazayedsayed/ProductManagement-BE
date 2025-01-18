@@ -32,7 +32,7 @@ namespace ProductManagement.Infrastructure.Repositories
 
                     .WhereIf(!string.IsNullOrWhiteSpace(req.SearchString),
                     e =>
-                    e.Name.Contains(req.SearchString, StringComparison.OrdinalIgnoreCase)
+                    e.Name.Contains(req.SearchString)
                     )
                      .WhereIf(req.CategoryId != Guid.Empty && req.CategoryId != null,
                     e =>
